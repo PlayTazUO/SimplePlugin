@@ -1,0 +1,12 @@
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.csproj.AssemblyReference.cache
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.GeneratedMSBuildEditorConfig.editorconfig
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.AssemblyInfoInputs.cache
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.AssemblyInfo.cs
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.csproj.CoreCompileInputs.cache
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/bin/Debug/net472/SimplePlugin.exe.config
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/bin/Debug/net472/SimplePlugin.exe
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/bin/Debug/net472/SimplePlugin.pdb
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/bin/Debug/net472/cuoapi.dll
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePl.B1003786.Up2Date
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.exe
+/home/tazman/repos/SPlugin/SimplePlugin/SimplePlugin/obj/Debug/net472/SimplePlugin.pdb
