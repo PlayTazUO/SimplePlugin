@@ -1,3 +1,5 @@
+namespace Assistant;
+
 public static class Actions
 {
     /// <summary>
@@ -8,8 +10,12 @@ public static class Actions
         fixed (byte* ptr = data)
         {
             byte id = data[0];
-
             //id is the packet id, you can filter here for specific packets.
+
+            // switch (id)
+            // {
+            // }
+
             //return true means the client(TazUO) will still process this packet, return false if you want the client to ignore this packet.
             return true;
         }
@@ -23,8 +29,8 @@ public static class Actions
         fixed (byte* ptr = data)
         {
             byte id = data[0];
-
             //id is the packet id being sent to the server
+
             //return true means the packet will be sent, return false to block it
             return true;
         }
@@ -80,12 +86,14 @@ public static class Actions
     }
 
     /// <summary>
-    /// This happens when the client connects to a server
+    /// This happens when the player is in game, not on initial login
     /// </summary>
     public static void OnConnected()
     {
         //Called when the client connects to a server
         Log.Info("Connected to server");
+
+        ClientPackets.AsciiMessage($"Hello from {Engine.PLUGIN_NAME}!");
     }
 
     /// <summary>

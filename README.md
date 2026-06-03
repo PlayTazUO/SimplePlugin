@@ -12,30 +12,23 @@ A template plugin for TazUO that demonstrates the CUO_API plugin interface.
    git clone https://github.com/YOUR-USERNAME/SimplePlugin.git
    cd SimplePlugin
    ```
-3. Rename the project and namespace to match your plugin name
-4. Start coding your plugin!
+3. Start coding your plugin!
 
 ### Option 3: Clone Directly
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/TazmanianTad/SimplePlugin.git
+   git clone https://github.com/PlayTazUO/SimplePlugin.git
    cd SimplePlugin
    ```
-2. Remove the existing git history and start fresh:
-   ```bash
-   rm -rf .git
-   git init
-   git add .
-   git commit -m "Initial commit"
-   ```
+
 
 ## Building Your Plugin
 
 ### Prerequisites
 
-- .NET 9 SDK
-- TazUO client with plugin support
+- .NET 10 SDK
+- TazUO client
 - The `cuoapi.dll` file (included in this repository)
 
 ### Build Instructions
@@ -45,7 +38,7 @@ A template plugin for TazUO that demonstrates the CUO_API plugin interface.
    ```bash
    dotnet build -c Release
    ```
-3. The compiled plugin DLL will be in `SimplePlugin/bin/Release/net9/`
+3. The compiled plugin DLL will be in `SimplePlugin/bin/Release/net10.0/`
 
 ### Installing the Plugin
 
@@ -138,6 +131,10 @@ public static unsafe bool OnPacketSent(ref byte[] data, ref int length)
 2. **Add new classes**: Create additional helper classes as needed
 3. **Use the Packet class**: Build and send custom packets using the `Packet` utility
 4. **Update plugin info**: Modify the console messages to reflect your plugin name
+
+## Renaming your plugin
+
+Inside SimplePlugin.csproj you can change the name inside the `<AssemblyName>` tags.
 
 ## Debugging
 

@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 using CUO_API;
 
@@ -5,11 +6,12 @@ namespace Assistant;
 
 public class Engine
 {
-    public const string PLUGIN_NAME = "Simple Plugin";
+    public static string PLUGIN_NAME = Assembly.GetExecutingAssembly().GetName().Name ?? "Simple Plugin";
 
     // Delegates for calling back into the client
     private static OnPacketSendRecv? _sendToClient;
     private static OnPacketSendRecv? _sendToServer;
+    public static OnPacketSendRecv SendToClient => _sendToClient ?? throw new InvalidOperationException("Client callback not set");
     private static OnGetPacketLength? _getPacketLength;
     private static OnGetPlayerPosition? _getPlayerPosition;
     private static OnCastSpell? _castSpell;
@@ -33,6 +35,8 @@ public class Engine
     private static OnFocusLost? _onFocusLost;
 
     private static string? m_ClientVersion;
+    public static string? ClientVersion => m_ClientVersion;
+    public static string? UOFilePath { get; private set; }
 
     public Engine()
     {
@@ -56,6 +60,8 @@ public class Engine
         _requestMove = (RequestMove)Marshal.GetDelegateForFunctionPointer(header->RequestMove, typeof(RequestMove));
         _setTitle = (OnSetTitle)Marshal.GetDelegateForFunctionPointer(header->SetTitle, typeof(OnSetTitle));
         _getUOFilePath = (OnGetUOFilePath)Marshal.GetDelegateForFunctionPointer(header->GetUOFilePath, typeof(OnGetUOFilePath));
+        
+        UOFilePath = _getUOFilePath();
 
         // Setup our plugin's callbacks
         _onRecv = Actions.OnPacketReceived;

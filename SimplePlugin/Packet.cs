@@ -10,46 +10,64 @@ namespace Assistant
         public long Length => _ms.Length;
         public byte[] Buffer => _ms.ToArray();
 
-        public Packet(byte id, long capacity = 0, bool dynamicLength = false)
+        public Packet(byte id, long capacity = 0, bool dynamicLength = true)
         {
             _dynamicLength = dynamicLength;
             _ms = capacity > 0 ? new MemoryStream((int)capacity) : new MemoryStream();
             _bw = new BinaryWriter(_ms);
+
             _bw.Write(id);
+
             if (_dynamicLength)
             {
                 _bw.Write((ushort)0); // Length placeholder
             }
         }
 
-        public Packet(byte[] data, int length, bool dynamicLength)
+        public void PadToPosition(int position)
         {
-            _dynamicLength = dynamicLength;
-            _ms = new MemoryStream();
-            _bw = new BinaryWriter(_ms);
-            _bw.Write(data, 0, length);
-            if (_dynamicLength)
+            while (_ms.Length < position)
             {
-                _ms.Position = 1;
-                _bw.Write((ushort)length);
-                _ms.Position = length;
+                _bw.Write((byte)0);
             }
         }
 
         public void Write(byte value) => _bw.Write(value);
         public void Write(ushort value) => _bw.Write(value);
+        public void WriteBE(ushort value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(bytes);
+            }
+            _bw.Write(bytes);
+        }
         public void Write(short value) => _bw.Write(value);
         public void Write(uint value) => _bw.Write(value);
+        public void WriteBE(uint value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(bytes);
+            }
+            _bw.Write(bytes);
+        }
         public void Write(int value) => _bw.Write(value);
         public void Write(long value) => _bw.Write(value);
         public void Write(ulong value) => _bw.Write(value);
         public void Write(byte[] buffer) => _bw.Write(buffer);
         public void Write(byte[] buffer, int index, int count) => _bw.Write(buffer, index, count);
-        public void WriteAscii(string value)
+        public void WriteAscii(string value, int padding = 0)
         {
             if (!string.IsNullOrEmpty(value))
             {
                 _bw.Write(Encoding.ASCII.GetBytes(value));
+                if (padding > 0 && value.Length < padding)
+                {
+                    _bw.Write(new byte[padding - value.Length]); // Pad with zeros if needed
+                }
             }
         }
         public void WriteUnicode(string value)
@@ -65,7 +83,11 @@ namespace Assistant
             if (_dynamicLength)
             {
                 _ms.Position = 1;
-                _bw.Write((ushort)_ms.Length);
+                
+                // This cleanly converts 0x0044 into 0x4400 
+                ushort bigEndianLength = BitConverter.IsLittleEndian ? System.Buffers.Binary.BinaryPrimitives.ReverseEndianness((ushort)_ms.Length) : (ushort)_ms.Length;
+                
+                _bw.Write(bigEndianLength);
             }
             return _ms.ToArray();
         }
