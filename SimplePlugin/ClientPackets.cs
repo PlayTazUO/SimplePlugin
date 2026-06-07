@@ -22,7 +22,7 @@ public static class ClientPackets
             return; // Don't send empty messages
         }
 
-        var packet = new Packet(0x1C, 45, dynamicLength: true); 
+        var packet = new Packet(IncomingPackets.ASCII_MESSAGE, 45, dynamicLength: true); 
         packet.WriteBE(serial);
         packet.WriteBE((ushort)1); // Graphic, unused in client
         packet.Write((byte)type);

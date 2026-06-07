@@ -51,7 +51,7 @@ A template plugin for TazUO that demonstrates the CUO_API plugin interface.
 ```
 SimplePlugin/
 ├── SimplePlugin/
-│   ├── Actions.cs          # Event handlers and callbacks
+│   ├── Actions.cs           # Event handlers and callbacks <-- start here with your plugin
 │   ├── Engine.cs            # Main plugin engine and initialization
 │   ├── Packet.cs            # Packet creation/manipulation utilities
 │   ├── SPlugin.cs           # Entry point

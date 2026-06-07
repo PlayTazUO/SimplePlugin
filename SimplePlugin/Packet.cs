@@ -10,6 +10,7 @@ namespace Assistant
         public long Length => _ms.Length;
         public byte[] Buffer => _ms.ToArray();
 
+        public Packet(IncomingPackets id, long capacity = 0, bool dynamicLength = true) : this((byte)id, capacity, dynamicLength) {}
         public Packet(byte id, long capacity = 0, bool dynamicLength = true)
         {
             _dynamicLength = dynamicLength;
